@@ -1,3 +1,9 @@
+<?php
+spl_autoload_register(function ($class_name) {
+    include 'classes/' . $class_name . '.php';
+});
+?>
+
 <!DOCTYPE html>
 <!-- Website template by freewebsitetemplates.com -->
 <html>
@@ -16,7 +22,7 @@
 				<a href="index.php" id="logo"><img src="images/logo.png" alt="logo"></a>
 				<ul>
 					<li class="selected">
-						<a href="dody-page.php">Home</a>
+						<a href="body-page.php">Home</a>
 					</li>
 					<li>
 						<a href="about.html">About</a>
