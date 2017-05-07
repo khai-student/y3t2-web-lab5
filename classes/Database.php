@@ -48,9 +48,26 @@ class Database
         $result = null;
 
         $result = $this->mysqli->query($sql);
-        $array = $result->fetch_all(MYSQLI_ASSOC);
+        if ($result) {
+            $array = $result->fetch_all(MYSQLI_ASSOC);
+            $result->free();
+            return $array;
+        }
+        else {
+            return null;
+        }
+    }
 
-        $result->free();
-        return $array;
+    public function Insert($sql) {
+        return $this->mysqli->query($sql);
+    }
+
+    public function RealEscapeString($string) {
+        if ($this->mysqli == null)
+        {
+            return '';
+        }
+        $string = $this->mysqli->real_escape_string($string);
+        return $string;
     }
 }

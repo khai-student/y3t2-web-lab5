@@ -16,10 +16,7 @@ $sections = $db->Select("SELECT name FROM public.section;");
 echo '
 <div class="sidebar">
     <a href="index.php" id="logo"><img src="/images/logo.png" alt="logo"></a>
-    <ul>
-        <li class="selected">
-            <a href="php/router.php">Home</a>
-        </li>';
+    <ul>';
 
 if (count($sections) > 0)
 {
@@ -36,3 +33,5 @@ echo '
     </ul>
 </div>
 ';
+
+unset($db);
