@@ -37,7 +37,7 @@ function ShowBodyPage($item_id, $back)
             <h2>'.$item[0]['title'].'</h2>
             <ul class="navigation">
                 <li>
-                    <a href="../body-page.php?r=controllers/sectionController.php&section='.$back.'">Back</a>
+                    <a href="../body-page.php?r=controllers/sectionController.php&data='.$back.'">Back</a>
                 </li>
             </ul>
             <ul>
@@ -46,7 +46,7 @@ function ShowBodyPage($item_id, $back)
                 </h3>
                 <li>
                     <div class="img">
-                        <img src="imageGetter.php?item_id='.$item_id.'" alt="There must be an image.">
+                        <img src="/php/imageGetter.php?item_id='.$item_id.'" alt="There must be an image.">
                     </div>
                     <div class="info">
                         <p>'.$item[0]['description'].'</p>

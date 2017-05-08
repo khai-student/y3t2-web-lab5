@@ -21,6 +21,9 @@ a {
 a img {
     border: 0;
     display: block;
+    width: 205px;
+    height: 205px;
+    object-fit: scale-down;
 }
 
 .border {
@@ -547,6 +550,7 @@ a img {
 .body .services ul li div img {
     width: 256px;
     height: 256px;
+    object-fit: scale-down;
 }
 
 .body .services ul li .info {
@@ -601,12 +605,8 @@ a img {
 .body .portfolio ul li {
     width: 217px;
     float: left;
-    margin: 0 5px;
+    margin: 0px 5px 45px 0px;
     text-align: center;
-}
-
-.body .portfolio ul li a:first-child {
-    margin: 0;
 }
 
 .body .portfolio ul li a:first-child img:hover {

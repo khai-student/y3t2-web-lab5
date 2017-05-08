@@ -3,29 +3,74 @@ spl_autoload_register(function ($class_name) {
     include '../classes/' . $class_name . '.php';
 });
 
+function InsertNewItem() {
+    
+$db = new Database();
+
+    $title = 'Yamaha SVC110 электровиолончель';
+    $description = 'виолончель ученическая, размер 3/4, верхняя дека - ель, низ и бока - клен, в комплекте - сумка, смычок, канифоль';
+    $section = 'cellos';
+    $imgFilename = 'image.jpg';
+    $properties = [ 
+        'Размер' => '4/4',
+        'Цена' => '33550 Грн.'
+        ];
+
+    $sql = "INSERT INTO public.item (fk_section_id, title, description)
+  SELECT
+    section.id,
+    '".$db->RealEscapeString($title)."',
+    '".$db->RealEscapeString($description)."'
+  FROM public.section
+  WHERE LOWER(section.name) = LOWER('".$db->RealEscapeString($section)."');";
+        if ($db->Insert($sql) == TRUE) {
+            echo 'Success.';
+        }
+        else {
+            echo 'Item insert failed.';
+            die();
+        } 
+
+    $imgData = file_get_contents($imgFilename);
+        $sql = "INSERT INTO public.image (fk_item_id, path, data)
+  SELECT
+    item.id,
+    '".$db->RealEscapeString($imgFilename)."',
+    '".$db->RealEscapeString($imgData)."'
+  FROM public.item
+  WHERE item.title = '".$db->RealEscapeString($title)."';";
+        if ($db->Insert($sql) == TRUE) {
+            echo 'Success.';
+        }
+        else {
+            echo 'Image insert failed.';
+            die();
+        } 
+
+    foreach ($properties as $property => $value) {
+        $sql = "INSERT INTO public.property (fk_item_id, property, value)
+  SELECT
+    item.id,
+    '".$db->RealEscapeString($property)."',
+    '".$db->RealEscapeString($value)."'
+  FROM public.item
+  WHERE item.title = '".$db->RealEscapeString($title)."';";
+         if ($db->Insert($sql) == TRUE) {
+            echo 'Success.';
+        }
+        else {
+            echo 'Property "'.$property.'" insert failed.<br>';
+            die();
+        } 
+    }
+    die();
+}
+
+// InsertNewItem();
+
 function ShowBodyPage($section_name, $back)
 {
     $db = new Database();
-
-//     echo $db->Select("SELECT value FROM public.property WHERE fk_item_id = 1;")[2]['value'];
-//     die();
-//         $prop = 'Материал';
-//         $value = 'Никель';
-//         $sql = "INSERT INTO public.property (fk_item_id, property, value) VALUES
-//   (1, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (2, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (3, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (4, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (5, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (6, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."'),
-//   (7, '".$db->RealEscapeString($prop)."', '".$db->RealEscapeString($value)."');";
-//         if ($db->Insert($sql) == TRUE) {
-//             echo 'Success.';
-//         }
-//         else {
-//             echo 'Insert failed.';
-//         } 
-// return;
 
     if ($section_name == "" || $section_name == null) {
         return;
